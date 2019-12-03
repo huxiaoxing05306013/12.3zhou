@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.f1704.shop.dao.ShopDao">
+  <select id="selectList" resultType="com.f1704.shop.model.Shop">
+    select * from shop
+    <where>
+      <if test="shop.name!=null and shop.name!=''">
+        and name like '%${shop.name}%'
+      </if>
+      <if test="shop.status!=null">
+        and status like '%${shop.status}%'
+      </if>
+
+    </where>
+  </select>
+
+  <insert id="insert" keyProperty="shop.id" useGeneratedKeys="true">
+    insert into shop (name,num,price,img,status,createTime)
+    values (#{shop.name},#{shop.num},#{shop.price},#{shop.img},#{shop.status},#{shop.createTime})
+  </insert>
+  <update id="update">
+   update shop  set name=#{shop.name},num=#{shop.num},price=#{shop.price},img=#{shop.img},status=#{shop.status},createTime=#{shop.createTime} where id=#{shop.id}
+  </update>
+
+</mapper>
